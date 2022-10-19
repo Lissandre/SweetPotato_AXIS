@@ -10,10 +10,17 @@ class PlayerManager {
       player1: { x: 0, y: 0 },
       player2: { x: 0, y: 0 },
     }
+    this._keydownValue = {
+      player1: null,
+      player2: null,
+    }
   }
   // GETTERS
   get JOYSTICK_POSITION() {
     return this._joystickPosition
+  }
+  get KEYDOWN_VALUE() {
+    return this._keydownValue
   }
   // PUBLIC
   setup() {
@@ -52,8 +59,8 @@ class PlayerManager {
   _setEvents({ player1, player2 }) {
     player1.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player1', e)})
     player2.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player2', e)})
-    player1.addEventListener("keydown", this._player1KeydownHandler)
-    player2.addEventListener("keydown", this._player2KeydownHandler)
+    player1.addEventListener("keydown", (e) => {this._keydownHandler('player1', e)})
+    player2.addEventListener("keydown", (e) => {this._keydownHandler('player2', e)})
   }
   _setKeys() {
     // Player 1
@@ -78,12 +85,8 @@ class PlayerManager {
   _joystickMoveHandler(player, e) {
     this._joystickPosition[player] = e.position
   }
-  _player1KeydownHandler(e) {
-    console.log('Player 1', e)
-  }
-
-  _player2KeydownHandler(e) {
-    console.log('Player 2', e)
+  _keydownHandler(player, e) {
+    this._keydownValue[player] = e.key
   }
 }
 
