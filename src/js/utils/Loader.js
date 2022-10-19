@@ -98,13 +98,11 @@ class Loader extends EventEmitter {
     ]
   }
   progress(xhr = null) {
-    if (xhr.lengthComputable) {
+    if (xhr.lengthComputable && xhr.isTrusted) {
       this.currentPercent = Math.floor((xhr.loaded / xhr.total) * 100)
       if (this.currentPercent === 100) {
         this.currentPercent = 0
       }
-      console.log('xhr %', this.currentPercent)
-      console.log('xhr', xhr)
       this.trigger('ressourceLoad')
     }
   }
@@ -218,10 +216,6 @@ class Loader extends EventEmitter {
         Math.floor((1 / this.total) * this.currentPercent)
       }%`
     })
-    console.log('complete', Math.floor((this.done / this.total) * 100) + Math.floor((1 / this.total) * this.currentPercent))
-    console.log('done', this.done)
-    console.log('total', this.total)
-    console.log('currentPercent', this.currentPercent)
 
     if (this.total === this.done) {
       setTimeout(() => {
