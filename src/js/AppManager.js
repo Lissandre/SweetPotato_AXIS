@@ -1,11 +1,13 @@
 import { Scene, sRGBEncoding, WebGLRenderer } from 'three'
-import gsap from 'gsap'
 import { Pane } from 'tweakpane'
+import gsap from 'gsap'
+import Axis from 'axis-api'
 
 import Assets from '@utils/Loader'
 import CameraManager from './CameraManager'
 import PlayerManager from './PlayerManager'
 import WorldManager from './WorldManager'
+import InterfaceManager from './InterfaceManager'
 
 class AppManager {
   constructor() {
@@ -30,8 +32,15 @@ class AppManager {
     this._cameraManager = this._setCameraManager()
     this._playerManager = this._setPlayerManager()
     this._worldManager = this._setWorldManager()
+    this._interfaceManager = this._setInterfaceManager()
     this._setTicker()
     this._setEvents()
+    setTimeout(() => {
+      this._interfaceManager.showInput()
+      setTimeout(() => {
+        this._interfaceManager.hideInput()
+      }, 3000)
+    }, 3000)
   }
   update() {
     this._renderer.render(this._scene, this._cameraManager.CAMERA)
@@ -70,6 +79,11 @@ class AppManager {
     worldManager.setup()
     return worldManager
   }
+  _setInterfaceManager() {
+    const interfaceManager = InterfaceManager
+    interfaceManager.setup()
+    return interfaceManager
+  }
   _setConfig() {
     if (window.location.hash === '#debug') {
       const debug = new Pane({
@@ -86,15 +100,26 @@ class AppManager {
       this.update()
     })
   }
+  _exitAttemptHandler() {
+    gsap.ticker.sleep()
+  }
+  _exitCanceledHandler() {
+    gsap.ticker.wake()
+  }
+  _exitCompletedHandler() {
+    console.log('exit completed')
+  }
   _setEvents() {
     window.addEventListener(
       'resize',
       () => {
         this._cameraManager.setSizes()
         this._renderer.setSize(window.innerWidth, window.innerHeight)
-      },
-      false
+      }
     )
+    Axis.addEventListener("exit:attempted", this._exitAttemptHandler)
+    Axis.addEventListener("exit:canceled", this._exitCanceledHandler)
+    Axis.addEventListener("exit:completed", this._exitCompletedHandler)
   }
 }
 

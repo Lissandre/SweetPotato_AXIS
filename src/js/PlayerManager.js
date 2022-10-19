@@ -2,6 +2,7 @@ import Axis from "axis-api"
 import gsap from "gsap"
 
 import AppManager from "./AppManager"
+import LeaderboardManager from "./LeaderboardManager"
 import Starship from "./components/Starship"
 
 class PlayerManager {

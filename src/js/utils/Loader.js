@@ -114,7 +114,7 @@ class Loader extends EventEmitter {
       },
     ]
   }
-  progress(xhr) {
+  progress(xhr = null) {
     if (xhr.lengthComputable) {
       this.currentPercent = Math.floor((xhr.loaded / xhr.total) * 100)
       if (this.currentPercent === 100) {
