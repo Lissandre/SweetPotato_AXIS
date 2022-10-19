@@ -35,12 +35,6 @@ class AppManager {
     this._interfaceManager = this._setInterfaceManager()
     this._setTicker()
     this._setEvents()
-    setTimeout(() => {
-      this._interfaceManager.showInput()
-      setTimeout(() => {
-        this._interfaceManager.hideInput()
-      }, 3000)
-    }, 3000)
   }
   update() {
     this._renderer.render(this._scene, this._cameraManager.CAMERA)

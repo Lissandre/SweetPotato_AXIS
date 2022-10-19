@@ -38,6 +38,8 @@ class PlayerManager {
   _setStarships() {
     const starship1 = new Starship({name: 'player1'})
     const starship2 = new Starship({name: 'player2'})
+    starship1.container.position.set(-1, 0, 0)
+    starship2.container.position.set(1, 0, 0)
     AppManager.SCENE.add(starship1.container)
     AppManager.SCENE.add(starship2.container)
     return { starship1, starship2 }
