@@ -16,6 +16,7 @@ export default class Starship {
     })
   }
   createStarship() {
+    // Replace  torus by future model
     this.starship = new Mesh(
       new TorusKnotGeometry(0.75, 1, 60, 6),
       new MeshBasicMaterial({ color: 0xff0000 })
