@@ -7,11 +7,10 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import { AudioLoader, TextureLoader } from 'three'
 
-export default class Loader extends EventEmitter {
-  constructor(options) {
+class Loader extends EventEmitter {
+  constructor() {
     // Get parent methods
     super()
-    this.template = options.template
 
     // Set up
     this.ressourcesList = []
@@ -22,7 +21,9 @@ export default class Loader extends EventEmitter {
     this.textures = {}
     this.sounds = {}
     this.fonts = {}
-
+  }
+  loads(template) {
+    this.template = template
     this.setLoaders()
     this.setRessourcesList()
   }
@@ -252,3 +253,5 @@ export default class Loader extends EventEmitter {
     return base
   }
 }
+
+export default new Loader()

@@ -1,16 +1,17 @@
 import { PerspectiveCamera } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-export default class CameraManager {
+class CameraManager {
   constructor(options) {
-    this.debug = options.debug
+    
   }
   // GETTERS
   get CAMERA() {
     return this._camera
   }
   // PUBLIC
-  setup() {
+  setup(options) {
+    this.debug = options.debug
     this._camera = this._setCamera()
     this.setPosition()
     this.setDirection()
@@ -56,3 +57,5 @@ export default class CameraManager {
     })
   }
 }
+
+export default new CameraManager()

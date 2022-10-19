@@ -2,14 +2,14 @@ import { Scene, sRGBEncoding, WebGLRenderer } from 'three'
 import gsap from 'gsap'
 import { Pane } from 'tweakpane'
 
+import Assets from '@utils/Loader'
 import CameraManager from './CameraManager'
 import PlayerManager from './PlayerManager'
-import World from '@world/index'
+import World from '@components'
 
-export default class AppManager {
+class AppManager {
   constructor(options) {
-    this.time = options.time
-    this.assets = options.assets
+    this.assets = Assets
   }
   // GETTERS
   get SCENE() {
@@ -21,9 +21,6 @@ export default class AppManager {
   get CAMERA_MANAGER() {
     return this._cameraManager
   }
-  get WORLD() {
-    return this._world
-  }
   // PUBLIC
   setup(canvas = document.querySelector('#_canvas')) {
     this.canvas = canvas
@@ -32,7 +29,8 @@ export default class AppManager {
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
     this._playerManager = this._setPlayerManager()
-    this._world = this._setWorld()
+    this.world = new World({debug: this._debug})
+    this._scene.add(this.world.container)
     this._setTicker()
     this._setEvents()
   }
@@ -59,8 +57,8 @@ export default class AppManager {
     return renderer
   }
   _setCameraManager() {
-    const cameraManager = new CameraManager({ debug: this._debug })
-    cameraManager.setup()
+    const cameraManager = CameraManager
+    cameraManager.setup({ debug: this._debug })
     this._scene.add(cameraManager.CAMERA)
     return cameraManager
   }
@@ -68,15 +66,6 @@ export default class AppManager {
     const playerManager = new PlayerManager()
     playerManager.setup()
     return playerManager
-  }
-  _setWorld() {
-    // Create world instance
-    const world = new World({
-      debug: this._debug,
-      assets: this.assets,
-    })
-    this._scene.add(world.container)
-    return world
   }
   _setConfig() {
     if (window.location.hash === '#debug') {
@@ -105,3 +94,5 @@ export default class AppManager {
     )
   }
 }
+
+export default new AppManager()

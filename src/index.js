@@ -1,7 +1,5 @@
-// IMPORT TOOLS
-import Assets from '@tools/Loader'
-// IMPORT APP
 import '@style/style.styl'
+import Assets from '@utils/Loader'
 import AppManager from '@js/AppManager'
 
 // LOADER TEMPLATE
@@ -17,11 +15,10 @@ const loader = `
 </div>
 `
 // SET TOOLS
-const assets = new Assets({
-  template: loader
-})
+const assets = Assets
+assets.loads(loader)
 
 // SET APP
-new AppManager({
-  assets: assets,
-}).setup()
+assets.on('ressourcesReady', () => {
+  AppManager.setup()
+})
