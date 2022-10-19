@@ -4,9 +4,16 @@ import gsap from "gsap"
 import AppManager from "./AppManager"
 import Starship from "./components/Starship"
 
-export default class PlayerManager {
+class PlayerManager {
   constructor(options) {
-
+    this._joystickPosition = {
+      player1: { x: 0, y: 0 },
+      player2: { x: 0, y: 0 },
+    }
+  }
+  // GETTERS
+  get JOYSTICK_POSITION() {
+    return this._joystickPosition
   }
   // PUBLIC
   setup() {
@@ -21,8 +28,8 @@ export default class PlayerManager {
   }
   // PRIVATE
   _setStarships() {
-    const starship1 = new Starship()
-    const starship2 = new Starship()
+    const starship1 = new Starship({name: 'player1'})
+    const starship2 = new Starship({name: 'player2'})
     AppManager.SCENE.add(starship1.container)
     AppManager.SCENE.add(starship2.container)
     return { starship1, starship2 }
@@ -43,11 +50,8 @@ export default class PlayerManager {
     return { player1, player2 }
   }
   _setEvents({ player1, player2 }) {
-    
-    console.log(this._starships);
-
-    player1.addEventListener("joystick:move", (e) => {this._player1JoystickMoveHandler(e)})
-    player2.addEventListener("joystick:move", (e) => {this._player2JoystickMoveHandler(e)})
+    player1.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player1', e)})
+    player2.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player2', e)})
     player1.addEventListener("keydown", this._player1KeydownHandler)
     player2.addEventListener("keydown", this._player2KeydownHandler)
   }
@@ -71,20 +75,9 @@ export default class PlayerManager {
     Axis.joystick2.setGamepadEmulatorJoystick(gamepadEmulator, 1)
     return gamepadEmulator
   }
-  _player1JoystickMoveHandler(e) {
-    // console.log('Player 1', e.position)
-
-    this._starships.starship1.container.position.x += e.position.x * 0.01
-    this._starships.starship1.container.position.z += e.position.y * 0.01
-    // console.log(this._starships.starship1.container.position);
+  _joystickMoveHandler(player, e) {
+    this._joystickPosition[player] = e.position
   }
-
-  _player2JoystickMoveHandler(e) {
-    // console.log('Player 2', e.position)
-    this._starships.starship2.container.position.x += e.position.x * 0.01
-    this._starships.starship2.container.position.z += e.position.y * 0.01
-  }
-
   _player1KeydownHandler(e) {
     console.log('Player 1', e)
   }
@@ -93,3 +86,5 @@ export default class PlayerManager {
     console.log('Player 2', e)
   }
 }
+
+export default new PlayerManager()

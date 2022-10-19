@@ -63,7 +63,7 @@ class AppManager {
     return cameraManager
   }
   _setPlayerManager() {
-    const playerManager = new PlayerManager()
+    const playerManager = PlayerManager
     playerManager.setup()
     return playerManager
   }
