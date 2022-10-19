@@ -30,8 +30,8 @@ export default class AppManager {
     this._debug = this._setConfig()
     this._scene = this._setScene()
     this._renderer = this._setRenderer()
-    this._cameraManager = this._setCamera()
-    this._playerManager = new PlayerManager()
+    this._cameraManager = this._setCameraManager()
+    this._playerManager = this._setPlayerManager()
     this._world = this._setWorld()
     this._setTicker()
     this._setEvents()
@@ -54,15 +54,20 @@ export default class AppManager {
     renderer.outputEncoding = sRGBEncoding
     renderer.gammaFactor = 2.2
     renderer.setClearColor(0x000000, 1)
-    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio))
     renderer.setSize(window.innerWidth, window.innerHeight)
     return renderer
   }
-  _setCamera() {
+  _setCameraManager() {
     const cameraManager = new CameraManager({debug: this._debug})
     cameraManager.setup()
     this._scene.add(cameraManager.CAMERA)
     return cameraManager
+  }
+  _setPlayerManager() {
+    const playerManager = new PlayerManager()
+    playerManager.setup()
+    return playerManager
   }
   _setWorld() {
     // Create world instance
@@ -84,7 +89,7 @@ export default class AppManager {
     return false
   }
   _setTicker() {
-    gsap.ticker.fps(60)
+    // gsap.ticker.fps(60)
     gsap.ticker.add(() => {this.update()})
   }
   _setEvents() {

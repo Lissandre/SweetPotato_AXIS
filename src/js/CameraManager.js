@@ -1,4 +1,5 @@
 import { PerspectiveCamera } from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export default class CameraManager {
   constructor(options) {
@@ -21,7 +22,7 @@ export default class CameraManager {
       this._setDebug()
     }
   }
-  setPosition(x = 0, y = 1, z = 5) {
+  setPosition(x = 0, y = 0, z = 5) {
     this._camera.position.x = x
     this._camera.position.y = y
     this._camera.position.z = z
@@ -42,6 +43,7 @@ export default class CameraManager {
     return camera
   }
   _setDebug() {
+    new OrbitControls(this._camera, document.querySelector('canvas'))
     this.debugFolder
       .addInput(this._camera, 'fov')
       .on('change', () => {

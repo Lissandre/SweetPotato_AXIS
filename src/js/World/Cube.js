@@ -14,7 +14,8 @@ export default class Cube {
     gsap.ticker.add((time, deltaTime) => {this.setMovement(time, deltaTime)})
   }
   createCube() {
-    this.cube = new Mesh(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({ color: 0xff0000 }))
+    // this.cube = new Mesh(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({ color: 0xff0000 }))
+    this.cube = this.assets.models.ship.scene
     this.container.add(this.cube)
   }
   setMovement(time, deltaTime) {
