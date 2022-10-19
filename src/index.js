@@ -1,6 +1,6 @@
 import '@style/style.styl'
 import Assets from '@utils/Loader'
-import AppManager from '@js/AppManager'
+import AppManager from './js/AppManager'
 
 // LOADER TEMPLATE
 const loader = `

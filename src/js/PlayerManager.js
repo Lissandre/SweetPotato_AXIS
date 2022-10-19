@@ -5,7 +5,7 @@ import AppManager from "./AppManager"
 import Starship from "./components/Starship"
 
 class PlayerManager {
-  constructor(options) {
+  constructor() {
     this._joystickPosition = {
       player1: { x: 0, y: 0 },
       player2: { x: 0, y: 0 },

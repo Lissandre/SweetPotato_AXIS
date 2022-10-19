@@ -5,21 +5,21 @@ import { Pane } from 'tweakpane'
 import Assets from '@utils/Loader'
 import CameraManager from './CameraManager'
 import PlayerManager from './PlayerManager'
-import World from '@components'
+import WorldManager from './WorldManager'
 
 class AppManager {
-  constructor(options) {
+  constructor() {
     this.assets = Assets
   }
   // GETTERS
+  get DEBUG() {
+    return this._debug
+  }
   get SCENE() {
     return this._scene
   }
   get RENDERER() {
     return this._renderer
-  }
-  get CAMERA_MANAGER() {
-    return this._cameraManager
   }
   // PUBLIC
   setup(canvas = document.querySelector('#_canvas')) {
@@ -29,8 +29,7 @@ class AppManager {
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
     this._playerManager = this._setPlayerManager()
-    this.world = new World({debug: this._debug})
-    this._scene.add(this.world.container)
+    this._worldManager = this._setWorldManager()
     this._setTicker()
     this._setEvents()
   }
@@ -58,14 +57,18 @@ class AppManager {
   }
   _setCameraManager() {
     const cameraManager = CameraManager
-    cameraManager.setup({ debug: this._debug })
-    this._scene.add(cameraManager.CAMERA)
+    cameraManager.setup()
     return cameraManager
   }
   _setPlayerManager() {
     const playerManager = PlayerManager
     playerManager.setup()
     return playerManager
+  }
+  _setWorldManager() {
+    const worldManager = WorldManager
+    worldManager.setup()
+    return worldManager
   }
   _setConfig() {
     if (window.location.hash === '#debug') {

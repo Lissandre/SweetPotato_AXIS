@@ -1,28 +1,31 @@
 import { PerspectiveCamera } from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import AppManager from './AppManager'
 
 class CameraManager {
-  constructor(options) {
-    
-  }
+  constructor() {}
   // GETTERS
   get CAMERA() {
     return this._camera
   }
   // PUBLIC
-  setup(options) {
-    this.debug = options.debug
+  setup() {
+    this._debug = AppManager.DEBUG
     this._camera = this._setCamera()
+    this.setScene()
     this.setPosition()
     this.setDirection()
 
-    if (this.debug) {
-      this.debugFolder = this.debug.addFolder({
+    if (this._debug) {
+      this.debugFolder = this._debug.addFolder({
         title: 'Camera',
         expanded: false,
       })
       this._setDebug()
     }
+  }
+  setScene(scene = AppManager.SCENE) {
+    scene.add(this._camera)
   }
   setPosition(x = 0, y = 5, z = 0) {
     this._camera.position.set(x, y, z)

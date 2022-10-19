@@ -1,38 +1,36 @@
 import { Object3D, PointLight, Color } from 'three'
+import AppManager from '../AppManager'
 
-export default class PointLightSource {
-  constructor(options) {
-    // Set options
-    this.debug = options.debug
-
+export default class PointLightSource extends Object3D {
+  constructor() {
+    super()
     // Set up
-    this.container = new Object3D()
-    this.container.name = 'Point Light'
+    this.name = 'PointLightSource'
+    this._debug = AppManager.DEBUG
     this.params = {
       color: 0xffffff,
       positionX: 0,
-      positionY: 2,
-      positionZ: 5,
+      positionY: 10,
+      positionZ: 0,
     }
-
+  }
+  setup() {
     this.createPointLight()
-
-    if (this.debug) {
-      this.setDebug()
+    this.setPosition()
+    if (this._debug) {
+      this._setDebug()
     }
   }
   createPointLight() {
     this.light = new PointLight(this.params.color, 2, 100)
-    this.light.position.set(
-      this.params.positionX,
-      this.params.positionY,
-      this.params.positionZ
-    )
-    this.container.add(this.light)
+    this.add(this.light)
   }
-  setDebug() {
+  setPosition(x = this.params.positionX, y = this.params.positionY, z = this.params.positionZ) {
+    this.light.position.set(x, y, z)
+  }
+  _setDebug() {
     // Color debug
-    this.debugFolder = this.debug.addFolder({
+    this.debugFolder = this._debug.addFolder({
       title: 'Point Light',
       expanded: false
     })
