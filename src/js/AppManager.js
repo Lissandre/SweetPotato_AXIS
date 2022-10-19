@@ -59,7 +59,7 @@ export default class AppManager {
     return renderer
   }
   _setCameraManager() {
-    const cameraManager = new CameraManager({debug: this._debug})
+    const cameraManager = new CameraManager({ debug: this._debug })
     cameraManager.setup()
     this._scene.add(cameraManager.CAMERA)
     return cameraManager
@@ -90,15 +90,18 @@ export default class AppManager {
   }
   _setTicker() {
     // gsap.ticker.fps(60)
-    gsap.ticker.add(() => {this.update()})
+    gsap.ticker.add(() => {
+      this.update()
+    })
   }
   _setEvents() {
-    window.addEventListener('resize', () => {
-      this._cameraManager.setSizes()
-      this._renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-      )
-    }, false)
+    window.addEventListener(
+      'resize',
+      () => {
+        this._cameraManager.setSizes()
+        this._renderer.setSize(window.innerWidth, window.innerHeight)
+      },
+      false
+    )
   }
 }

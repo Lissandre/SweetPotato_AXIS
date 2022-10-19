@@ -13,6 +13,7 @@ export default class CameraManager {
   setup() {
     this._camera = this._setCamera()
     this.setPosition()
+    this.setDirection()
 
     if (this.debug) {
       this.debugFolder = this.debug.addFolder({
@@ -22,14 +23,14 @@ export default class CameraManager {
       this._setDebug()
     }
   }
-  setPosition(x = 0, y = 0, z = 5) {
-    this._camera.position.x = x
-    this._camera.position.y = y
-    this._camera.position.z = z
+  setPosition(x = 0, y = 5, z = 0) {
+    this._camera.position.set(x, y, z)
+  }
+  setDirection(x = 0, y = 0, z = 0) {
+    this._camera.lookAt(x, y, z)
   }
   setSizes() {
-    this._camera.aspect =
-      window.innerWidth / window.innerHeight
+    this._camera.aspect = window.innerWidth / window.innerHeight
     this._camera.updateProjectionMatrix()
   }
   // PRIVATE
@@ -44,17 +45,14 @@ export default class CameraManager {
   }
   _setDebug() {
     new OrbitControls(this._camera, document.querySelector('canvas'))
-    this.debugFolder
-      .addInput(this._camera, 'fov')
-      .on('change', () => {
-        this._camera.updateProjectionMatrix()
-      })
-    this.debugFolder
-      .addInput(this._camera, 'position', {
-        label: 'x, y, z',
-        x: {min: -5, max: 5},
-        y: {min: -5, max: 5},
-        z: {min: -5, max: 5},
-      })
+    this.debugFolder.addInput(this._camera, 'fov').on('change', () => {
+      this._camera.updateProjectionMatrix()
+    })
+    this.debugFolder.addInput(this._camera, 'position', {
+      label: 'x, y, z',
+      x: { min: -5, max: 5 },
+      y: { min: -5, max: 5 },
+      z: { min: -5, max: 5 },
+    })
   }
 }
