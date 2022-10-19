@@ -15,7 +15,7 @@ export default class Starship {
     // })
   }
   createStarship() {
-    this.starship = this.assets.models.ship.scene
+    this.starship = this.assets.models.ship.scene.clone()
     this.container.add(this.starship)
   }
   setMovement(time, deltaTime) {
