@@ -103,7 +103,8 @@ class Loader extends EventEmitter {
       if (this.currentPercent === 100) {
         this.currentPercent = 0
       }
-      console.log('xhr', this.currentPercent)
+      console.log('xhr %', this.currentPercent)
+      console.log('xhr', xhr)
       this.trigger('ressourceLoad')
     }
   }
