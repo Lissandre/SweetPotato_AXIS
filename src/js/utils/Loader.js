@@ -2,7 +2,6 @@ import EventEmitter from './EventEmitter'
 
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader'
 
 import { AudioLoader, TextureLoader } from 'three'
@@ -35,8 +34,6 @@ class Loader extends EventEmitter {
     const gltfLoader = new GLTFLoader()
     gltfLoader.setDRACOLoader(dracoLoader)
 
-    const fbxLoader = new FBXLoader()
-
     const textureLoader = new TextureLoader()
     const fontLoader = new FontLoader()
     const soundLoader = new AudioLoader()
@@ -46,20 +43,6 @@ class Loader extends EventEmitter {
         filetype: ['gltf', 'glb'],
         action: (model) => {
           gltfLoader.load(
-            model.src,
-            (loaded) => {
-              this.loadComplete(model, loaded)
-            },
-            (xhr) => {
-              this.progress(xhr)
-            }
-          )
-        },
-      },
-      {
-        filetype: ['fbx'],
-        action: (model) => {
-          fbxLoader.load(
             model.src,
             (loaded) => {
               this.loadComplete(model, loaded)
@@ -120,12 +103,13 @@ class Loader extends EventEmitter {
       if (this.currentPercent === 100) {
         this.currentPercent = 0
       }
+      console.log('xhr', this.currentPercent)
       this.trigger('ressourceLoad')
     }
   }
   setRessourcesList() {
     // eslint-disable-next-line
-    const modelsContext = require.context('@models', true, /\.(glb|gltf|fbx)$/)
+    const modelsContext = require.context('@models', true, /\.(glb|gltf)$/)
     modelsContext.keys().forEach((key) => {
       const newKey = `${key}`.substring(2)
       // eslint-disable-next-line
@@ -233,6 +217,10 @@ class Loader extends EventEmitter {
         Math.floor((1 / this.total) * this.currentPercent)
       }%`
     })
+    console.log('complete', Math.floor((this.done / this.total) * 100) + Math.floor((1 / this.total) * this.currentPercent))
+    console.log('done', this.done)
+    console.log('total', this.total)
+    console.log('currentPercent', this.currentPercent)
 
     if (this.total === this.done) {
       setTimeout(() => {
