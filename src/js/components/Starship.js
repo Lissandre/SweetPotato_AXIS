@@ -7,8 +7,9 @@ export default class Starship {
   constructor(options) {
     // Set up
     this.container = new Object3D()
+    this.assets = Assets
     this.name = options.name
-    this.container.name = `Starship ${options.name}`
+    this.container.name = `Starship ${this.name}`
 
     this.createStarship()
     this.setMovement()
@@ -19,7 +20,7 @@ export default class Starship {
   }
   // PUBLIC
   createStarship() {
-    this.starship = Assets.models.ship.scene.clone()
+    this.starship = this.assets.models.ship.scene.clone()
     this.container.add(this.starship)
   }
   setMovement() {

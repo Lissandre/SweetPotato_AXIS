@@ -103,7 +103,7 @@ class PlayerManager {
     return gamepadEmulator
   }
   _joystickMoveHandler(player, e) {
-    this._joystickPosition[`player${e.id}`] = e.position
+    this._joystickPosition[player] = e.position
   }
   _keydownHandler(player, e) {
     this._keydownValue[player] = e.key
