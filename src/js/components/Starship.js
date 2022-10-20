@@ -1,4 +1,4 @@
-import { Object3D } from 'three'
+import { Object3D, Vector3 } from 'three'
 import gsap from 'gsap'
 import Assets from '@utils/Loader'
 import PlayerManager from '@js/PlayerManager'
@@ -9,6 +9,8 @@ export default class Starship extends Object3D {
     // Set up
     this.user = options.name
     this.name = `Starship ${options.name}`
+    this.speed = 0.09
+    this.direction = new Vector3()
 
     this.createStarship()
     this.setMovement()
@@ -24,10 +26,9 @@ export default class Starship extends Object3D {
   }
   setMovement() {
     gsap.ticker.add((time, deltaTime) => {
-      this.position.x +=
-        (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 100
-      this.position.z -=
-        (PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 100
+      this.rotation.y -=
+        (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 300
+      this.position.add(this._getForwardVector().multiplyScalar((-PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 300 - this.speed))
 
       gsap.to(this.starship.rotation, {
         x: -PlayerManager.JOYSTICK_POSITION[this.user].y / 4,
@@ -43,5 +44,12 @@ export default class Starship extends Object3D {
         ease: 'circ.in',
       })
     })
+  }
+  // PRIVATE
+  _getForwardVector() {
+    this.getWorldDirection(this.direction)
+    this.direction.y = 0
+    this.direction.normalize()
+    return this.direction
   }
 }

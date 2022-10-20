@@ -22,14 +22,15 @@ export default class CosmicPotato extends Object3D {
         color: 0xff0000
       })
     )
-    potato.position.z = -0.25
+    // potato.position.z = -0.25
     return potato
   }
   _animate() {
     gsap.ticker.add(() => {
-      this.position
-        .copy(PlayerManager.ACTIVE_STARSHIP.FOURCHETTE.position)
-        .add(PlayerManager.ACTIVE_STARSHIP.position)
+      // console.log(PlayerManager.ACTIVE_STARSHIP.position);
+      this.position.copy(PlayerManager.ACTIVE_STARSHIP.position)
+      this._potato.position.z = -1.3
+      this.rotation.set(PlayerManager.ACTIVE_STARSHIP.starship.rotation.x, PlayerManager.ACTIVE_STARSHIP.rotation.y, PlayerManager.ACTIVE_STARSHIP.rotation.z)
     })
   }
 }

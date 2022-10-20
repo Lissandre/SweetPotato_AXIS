@@ -54,9 +54,9 @@ class CameraManager {
     })
     this.debugFolder.addInput(this._camera, 'position', {
       label: 'x, y, z',
-      x: { min: -5, max: 5 },
-      y: { min: -5, max: 5 },
-      z: { min: -5, max: 5 },
+      x: { min: -100, max: 100 },
+      y: { min: -100, max: 100 },
+      z: { min: -100, max: 100 },
     })
   }
 }
