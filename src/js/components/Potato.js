@@ -2,25 +2,29 @@ import { Object3D } from 'three'
 import Assets from '@utils/Loader'
 import gsap from 'gsap'
 
-export default class Starship {
+export default class Potato {
   constructor(options) {
     // Set up
     this.assets = Assets
     this.container = new Object3D()
-    this.container.name = 'Potato'
+    this.name = options.name
+    this.container.name = `Potato ${this.name}`
 
-    this.createPotato('potato3')
+    const min = 1
+    const max = 3
+    const randValue = Math.floor(Math.random() * (max - min + 1)) + min
+    this.createPotato(randValue)
     this.setMovement()
   }
-  createPotato(potatoType = 'potato1') {
+  createPotato(potatoType = 1) {
     this.potato =
-      potatoType === 'potato1'
-        ? this.assets.models.patate_1.scene.clone()
-        : potatoType === 'potato2'
+      potatoType === 1
+        ? this.assets.models.patate_1_V02.scene.clone()
+        : potatoType === 2
         ? this.assets.models.patate_2.scene.clone()
-        : potatoType === 'potato3'
+        : potatoType === 3
         ? this.assets.models.patate_3.scene.clone()
-        : this.assets.models.patate_1.scene.clone()
+        : this.assets.models.patate_1_V02.scene.clone()
     this.container.add(this.potato)
   }
   setMovement() {

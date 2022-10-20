@@ -6,6 +6,7 @@ import Axis from 'axis-api'
 import Assets from '@utils/Loader'
 import CameraManager from './CameraManager'
 import PlayerManager from './PlayerManager'
+import FoeManager from './FoeManager'
 import WorldManager from './WorldManager'
 import InterfaceManager from './InterfaceManager'
 
@@ -31,6 +32,7 @@ class AppManager {
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
     this._playerManager = this._setPlayerManager()
+    this._foeManager = this._setFoeManager()
     this._worldManager = this._setWorldManager()
     this._interfaceManager = this._setInterfaceManager()
     this._setTicker()
@@ -68,6 +70,11 @@ class AppManager {
     playerManager.setup()
     return playerManager
   }
+  _setFoeManager() {
+    const foeManager = FoeManager
+    foeManager.setup()
+    return foeManager
+  }
   _setWorldManager() {
     const worldManager = WorldManager
     worldManager.setup()
@@ -104,16 +111,13 @@ class AppManager {
     console.log('exit completed')
   }
   _setEvents() {
-    window.addEventListener(
-      'resize',
-      () => {
-        this._cameraManager.setSizes()
-        this._renderer.setSize(window.innerWidth, window.innerHeight)
-      }
-    )
-    Axis.addEventListener("exit:attempted", this._exitAttemptHandler)
-    Axis.addEventListener("exit:canceled", this._exitCanceledHandler)
-    Axis.addEventListener("exit:completed", this._exitCompletedHandler)
+    window.addEventListener('resize', () => {
+      this._cameraManager.setSizes()
+      this._renderer.setSize(window.innerWidth, window.innerHeight)
+    })
+    Axis.addEventListener('exit:attempted', this._exitAttemptHandler)
+    Axis.addEventListener('exit:canceled', this._exitCanceledHandler)
+    Axis.addEventListener('exit:completed', this._exitCompletedHandler)
   }
 }
 
