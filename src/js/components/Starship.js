@@ -30,7 +30,7 @@ export default class Starship extends Object3D {
     gsap.ticker.add((time, deltaTime) => {
       this.rotation.y -=
         (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 200
-      this.position.add(getForwardVector(this).multiplyScalar((-PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 300 - this.speed))
+      this.position.add(getForwardVector(this).multiplyScalar((-PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 250 - this.speed))
 
       gsap.to(this.starship.rotation, {
         x: -PlayerManager.JOYSTICK_POSITION[this.user].y / 4,

@@ -17,6 +17,9 @@ class PlayerManager {
     }
     this._users = ['player1', 'player2']
     this._activeUser = 'player1'
+    this._setKeys()
+    this._gamepadEmulator = this._setGamepadEmulator()
+    gsap.ticker.add(() => { this._gamepadEmulator.update() })
   }
   // GETTERS
   get JOYSTICK_POSITION() {
@@ -41,13 +44,6 @@ class PlayerManager {
     this._players = this._setPlayers()
     this._cosmicPotato = this._setCosmicPotato()
     this._setEvents(this._players)
-    if (AppManager.DEBUG) {
-      this._setKeys()
-      this._gamepadEmulator = this._setGamepadEmulator()
-      gsap.ticker.add(() => {
-        this._gamepadEmulator.update()
-      })
-    }
   }
   changeActiveUser() {
     this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'

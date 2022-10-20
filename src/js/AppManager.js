@@ -34,7 +34,7 @@ class AppManager {
     this._playerManager = this._setPlayerManager()
     // this._foeManager = this._setFoeManager()
     this._worldManager = this._setWorldManager()
-    this._interfaceManager = this._setInterfaceManager()
+    // this._interfaceManager = this._setInterfaceManager()
     this._setTicker()
     this._setEvents()
   }
@@ -82,7 +82,6 @@ class AppManager {
   }
   _setInterfaceManager() {
     const interfaceManager = InterfaceManager
-    interfaceManager.setup()
     return interfaceManager
   }
   _setConfig() {

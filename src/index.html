@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
     <title>THREE.js Template</title>
 </head>
 <body>
-    <div class="joy1"></div><div class="joy2"></div>
-    <div id="_container">
-        <input type="text" id="_username">
+    <div id="ui">
+        <div id="_start">
+            <div>
+                <img src="./images/logo.png" alt="">
+            </div>
+            <button class="hidden">Start</button>
+            <p>
+                by
+                <span>Sweet Potato Studio</span>
+            </p>
+        </div>
+        <div id="_container">
+            <input type="text" id="_username">
+        </div>
     </div>
     <canvas id="_canvas"></canvas>
 </body>

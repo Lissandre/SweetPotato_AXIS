@@ -211,10 +211,12 @@ class Loader extends EventEmitter {
 
     this.trigger('ressourceLoad', [ressource, loaded])
     this.progressBar.forEach((el) => {
-      el.style.width = this.loadModels.innerHTML = `${
+      el.style.width = `${
         Math.floor((this.done / this.total) * 100) +
         Math.floor((1 / this.total) * this.currentPercent)
       }%`
+      this.loadModels.innerHTML = `${Math.floor((this.done / this.total) * 100) +
+        Math.floor((1 / this.total) * this.currentPercent)}`
     })
 
     if (this.total === this.done) {
