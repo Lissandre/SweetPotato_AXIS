@@ -9,7 +9,8 @@ export default class Starship extends Object3D {
     // Set up
     this.user = options.name
     this.name = `Starship ${options.name}`
-    this.speed = 0.09
+    // this.speed = 0.09
+    this.speed = 0
     this.direction = new Vector3()
 
     this.createStarship()
@@ -38,7 +39,7 @@ export default class Starship extends Object3D {
       })
 
       gsap.to(this.starship.rotation, {
-        z: -PlayerManager.JOYSTICK_POSITION[this.user].x / 2,
+        z: -PlayerManager.JOYSTICK_POSITION[this.user].x / 3,
         duration: 0.06,
         repeat: 1,
         ease: 'circ.in',

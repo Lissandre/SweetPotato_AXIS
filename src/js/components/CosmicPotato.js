@@ -1,6 +1,7 @@
 import { Mesh, MeshStandardMaterial, Object3D, SphereGeometry } from "three"
 import gsap from "gsap"
 import PlayerManager from "@js/PlayerManager"
+import AppManager from "../AppManager"
 
 export default class CosmicPotato extends Object3D {
   constructor() {
@@ -27,10 +28,10 @@ export default class CosmicPotato extends Object3D {
   }
   _animate() {
     gsap.ticker.add(() => {
-      // console.log(PlayerManager.ACTIVE_STARSHIP.position);
       this.position.copy(PlayerManager.ACTIVE_STARSHIP.position)
-      this._potato.position.z = -1.3
-      this.rotation.set(PlayerManager.ACTIVE_STARSHIP.starship.rotation.x, PlayerManager.ACTIVE_STARSHIP.rotation.y, PlayerManager.ACTIVE_STARSHIP.rotation.z)
+      this._potato.position.copy(PlayerManager.ACTIVE_STARSHIP.FOURCHETTE.position)
+      this.rotation.y = PlayerManager.ACTIVE_STARSHIP.rotation.y
+      // this.rotation.x = PlayerManager.ACTIVE_STARSHIP.starship.rotation.x
     })
   }
 }
