@@ -26,8 +26,10 @@ class FoeManager {
     for (let i = 0; i < foesNumberToInit; i++) {
       const foeId = this._foes.length + 1
       const newFoe = new Potato({ name: `potato${foeId}` })
+      newFoe.position.set(-100, 0, 0)
+      newFoe.position.set(100, 0, 0)
       this._foes.push(newFoe)
-      AppManager.SCENE.add(newFoe.container)
+      AppManager.SCENE.add(newFoe)
       this._incrementFoesNumber()
     }
     const foes = this._foes
