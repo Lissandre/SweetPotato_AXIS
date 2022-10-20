@@ -35,7 +35,7 @@ class AppManager {
     this._worldManager = this._setWorldManager()
   }
   init() {
-    // this._foeManager = this._setFoeManager()
+    this._foeManager = this._setFoeManager()
     this._leaderboardManager = this._setLeaderboardManager()
     this._playerManager = this._setPlayerManager()
     this._setTicker()
