@@ -126,7 +126,7 @@
 }
 
 #_start button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 #_teaser.hidden {
@@ -157,7 +157,6 @@
 }
 
 #_scores {
-  z-index: 1;
   opacity: 1;
   pointer-events: auto;
   position: absolute;
