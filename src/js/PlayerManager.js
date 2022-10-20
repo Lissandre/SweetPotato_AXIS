@@ -50,10 +50,10 @@ class PlayerManager {
   _setStarships() {
     const starship1 = new Starship({name: 'player1'})
     const starship2 = new Starship({name: 'player2'})
-    starship1.position.set(-1, 0, 0)
-    starship2.position.set(1, 0, 0)
-    AppManager.SCENE.add(starship1)
-    AppManager.SCENE.add(starship2)
+    starship1.container.position.set(-1, 0, 0)
+    starship2.container.position.set(1, 0, 0)
+    AppManager.SCENE.add(starship1.container)
+    AppManager.SCENE.add(starship2.container)
     return { player1: starship1, player2: starship2 }
   }
   _setPlayers() {
@@ -104,7 +104,6 @@ class PlayerManager {
   }
   _joystickMoveHandler(player, e) {
     this._joystickPosition[player] = e.position
-    document.querySelector('.joy').innerHTML = this._joystickPosition
   }
   _keydownHandler(player, e) {
     this._keydownValue[player] = e.key

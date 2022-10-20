@@ -3,12 +3,12 @@ import gsap from 'gsap'
 import Assets from '@utils/Loader'
 import PlayerManager from '@js/PlayerManager'
 
-export default class Starship extends Object3D {
+export default class Starship {
   constructor(options) {
-    super()
     // Set up
-    this.user = options.name
-    this.name = `Starship ${options.name}`
+    this.container = new Object3D()
+    this.name = options.name
+    this.container.name = `Starship ${options.name}`
 
     this.createStarship()
     this.setMovement()
@@ -20,13 +20,13 @@ export default class Starship extends Object3D {
   // PUBLIC
   createStarship() {
     this.starship = Assets.models.ship.scene.clone()
-    this.add(this.starship)
+    this.container.add(this.starship)
   }
   setMovement() {
     gsap.ticker.add((time, deltaTime) => {
-      this.position.x +=
+      this.container.position.x +=
         (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 100
-      this.position.z -=
+      this.container.position.z -=
         (PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 100
 
       gsap.to(this.starship.rotation, {
