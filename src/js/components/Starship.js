@@ -5,9 +5,10 @@ import PlayerManager from '@js/PlayerManager'
 
 export default class Starship extends Object3D {
   constructor(options) {
+    super()
     // Set up
     this.user = options.name
-    this.name = `Starship ${this.name}`
+    this.name = `Starship ${options.name}`
 
     this.createStarship()
     this.setMovement()

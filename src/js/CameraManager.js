@@ -27,7 +27,7 @@ class CameraManager {
   setScene(scene = AppManager.SCENE) {
     scene.add(this._camera)
   }
-  setPosition(x = 0, y = 5, z = 0) {
+  setPosition(x = 0, y = 20, z = 0) {
     this._camera.position.set(x, y, z)
   }
   setDirection(x = 0, y = 0, z = 0) {
