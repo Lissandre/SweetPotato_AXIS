@@ -8,6 +8,7 @@ import CameraManager from './CameraManager'
 import PlayerManager from './PlayerManager'
 import FoeManager from './FoeManager'
 import WorldManager from './WorldManager'
+import LeaderboardManager from './LeaderboardManager'
 import InterfaceManager from './InterfaceManager'
 
 class AppManager {
@@ -31,12 +32,16 @@ class AppManager {
     this._scene = this._setScene()
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
-    this._playerManager = this._setPlayerManager()
-    // this._foeManager = this._setFoeManager()
     this._worldManager = this._setWorldManager()
-    // this._interfaceManager = this._setInterfaceManager()
+  }
+  init() {
+    // this._foeManager = this._setFoeManager()
+    this._leaderboardManager = this._setLeaderboardManager()
+    this._playerManager = this._setPlayerManager()
     this._setTicker()
     this._setEvents()
+    this._leaderboardManager.setTimer()
+    gsap.ticker.time = 0
   }
   update() {
     this._renderer.render(this._scene, this._cameraManager.CAMERA)
@@ -79,6 +84,11 @@ class AppManager {
     const worldManager = WorldManager
     worldManager.setup()
     return worldManager
+  }
+  _setLeaderboardManager() {
+    const loaderboardManager = LeaderboardManager
+    loaderboardManager.setup()
+    return loaderboardManager
   }
   _setInterfaceManager() {
     const interfaceManager = InterfaceManager

@@ -1,4 +1,5 @@
 import Axis from "axis-api"
+import gsap from "gsap"
 
 class LeaderboardManager {
   constructor() {
@@ -31,7 +32,13 @@ class LeaderboardManager {
   setUsernameAndScore() {
     this._openKeyboard()
   }
+  setTimer() {
+    gsap.ticker.add((time) => {this._incrementScore(time)})
+  }
   // PRIVATE
+  _incrementScore(time) {
+    this._score = (time * 10).toFixed(0)
+  }
   _setEvents() {
     Axis.virtualKeyboard.addEventListener("input", (username) => { this._input.value = username })
     Axis.virtualKeyboard.addEventListener("validate", (username) => { this._saveUsername(username) })
@@ -60,7 +67,7 @@ class LeaderboardManager {
   }
   _setLeaderboard() {
     const leaderboard = Axis.createLeaderboard({
-      id: process.env.ID,
+      id: 'Keep-The-Patate-fecb4c10-14b0-4783-accb-bac8b1ca15a1',
     })
     return leaderboard
   }

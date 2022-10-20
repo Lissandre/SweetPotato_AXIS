@@ -17,7 +17,7 @@ export default class Floor extends Object3D {
     const floor = new Mesh(
       new PlaneGeometry(100, 100),
       new MeshStandardMaterial({
-        color: 0xff00ff,
+        color: 0x222222,
         side: DoubleSide,
       })
     )
