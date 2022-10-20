@@ -17,6 +17,12 @@ class LeaderboardManager {
   get SCORES() {
     return this._getScores()
   }
+  get BEST_SCORE() {
+    return this._getBestScore()
+  }
+  get SCORE() {
+    return this._score
+  }
   // PUBLIC
   setup() {
     this._leaderboard = this._setLeaderboard()
@@ -44,6 +50,13 @@ class LeaderboardManager {
       scores = response
     })
     return scores
+  }
+  _getBestScore() {
+    let score
+    this._leaderboard.getScores().then((response) => {
+      score = response[0]
+    })
+    return score
   }
   _setLeaderboard() {
     const leaderboard = Axis.createLeaderboard({

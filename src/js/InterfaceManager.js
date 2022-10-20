@@ -1,6 +1,7 @@
 import Axis from 'axis-api'
 import Assets from '@utils/Loader'
 import AppManager from './AppManager'
+import LeaderboardManager from './LeaderboardManager'
 
 class InterfaceManager {
   constructor() {}
@@ -11,10 +12,16 @@ class InterfaceManager {
     })
     this._container = document.querySelector("#_container")
     this._input = document.querySelector("#_username")
+    this._endGame = document.querySelector("#_scores")
   }
   init() {
     document.querySelector('#_start button').classList.remove('hidden')
     this._setEvents()
+  }
+  setScores() {
+    this._endGame.classList.remove("hidden")
+    this._endGame.querySelector('.best span').innerHTML = LeaderboardManager.SCORE
+    this._endGame.querySelector('.now span').innerHTML = LeaderboardManager.BEST_SCORE
   }
   showInput() {
     this._container.classList.add("active")
