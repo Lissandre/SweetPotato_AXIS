@@ -29,7 +29,7 @@ export default class CosmicPotato extends Object3D {
     gsap.ticker.add(() => {
       this.position
         .copy(PlayerManager.ACTIVE_STARSHIP.FOURCHETTE.position)
-        .add(PlayerManager.ACTIVE_STARSHIP.position)
+        .add(PlayerManager.ACTIVE_STARSHIP.container.position)
     })
   }
 }

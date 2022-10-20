@@ -25,19 +25,19 @@ export default class Starship {
   setMovement() {
     gsap.ticker.add((time, deltaTime) => {
       this.container.position.x +=
-        (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 100
+        (PlayerManager.JOYSTICK_POSITION[this.name].x * deltaTime) / 100
       this.container.position.z -=
-        (PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 100
+        (PlayerManager.JOYSTICK_POSITION[this.name].y * deltaTime) / 100
 
       gsap.to(this.starship.rotation, {
-        x: -PlayerManager.JOYSTICK_POSITION[this.user].y / 4,
+        x: -PlayerManager.JOYSTICK_POSITION[this.name].y / 4,
         duration: 0.03,
         repeat: 1,
         ease: 'expo.in',
       })
 
       gsap.to(this.starship.rotation, {
-        z: -PlayerManager.JOYSTICK_POSITION[this.user].x / 2,
+        z: -PlayerManager.JOYSTICK_POSITION[this.name].x / 2,
         duration: 0.06,
         repeat: 1,
         ease: 'circ.in',
