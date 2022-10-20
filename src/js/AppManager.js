@@ -32,7 +32,7 @@ class AppManager {
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
     this._playerManager = this._setPlayerManager()
-    this._foeManager = this._setFoeManager()
+    // this._foeManager = this._setFoeManager()
     this._worldManager = this._setWorldManager()
     this._interfaceManager = this._setInterfaceManager()
     this._setTicker()

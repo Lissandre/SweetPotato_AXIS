@@ -2,7 +2,8 @@ import Axis from "axis-api"
 import gsap from "gsap"
 
 import AppManager from "./AppManager"
-import Starship from "./components/Starship"
+import Starship from "@components/Starship"
+import CosmicPotato from "@components/CosmicPotato"
 
 class PlayerManager {
   constructor() {
@@ -14,6 +15,8 @@ class PlayerManager {
       player1: null,
       player2: null,
     }
+    this._users = ['player1', 'player2']
+    this._activeUser = 'player1'
   }
   // GETTERS
   get JOYSTICK_POSITION() {
@@ -22,10 +25,17 @@ class PlayerManager {
   get KEYDOWN_VALUE() {
     return this._keydownValue
   }
+  get ACTIVE_USER() {
+    return this._activeUser
+  }
+  get ACTIVE_STARSHIP() {
+    return this._starships[this._activeUser]
+  }
   // PUBLIC
   setup() {
     this._starships = this._setStarships()
     this._players = this._setPlayers()
+    this.cosmicPotato = this._setCosmicPotato()
     this._setEvents(this._players)
     if (process.env.NODE_ENV === "development") {
       this._setKeys()
@@ -33,15 +43,18 @@ class PlayerManager {
       gsap.ticker.add(() => { this._gamepadEmulator.update() })
     }
   }
+  changeActiveUser() {
+    this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'
+  }
   // PRIVATE
   _setStarships() {
     const starship1 = new Starship({name: 'player1'})
     const starship2 = new Starship({name: 'player2'})
-    starship1.container.position.set(-1, 0, 0)
-    starship2.container.position.set(1, 0, 0)
-    AppManager.SCENE.add(starship1.container)
-    AppManager.SCENE.add(starship2.container)
-    return { starship1, starship2 }
+    starship1.position.set(-1, 0, 0)
+    starship2.position.set(1, 0, 0)
+    AppManager.SCENE.add(starship1)
+    AppManager.SCENE.add(starship2)
+    return { player1: starship1, player2: starship2 }
   }
   _setPlayers() {
     const player1 = Axis.createPlayer({
@@ -57,6 +70,11 @@ class PlayerManager {
       // buttons: Axis.buttonManager.getButton("w", 2),
     })
     return { player1, player2 }
+  }
+  _setCosmicPotato() {
+    const cosmicPotato = new CosmicPotato()
+    AppManager.SCENE.add(cosmicPotato)
+    return cosmicPotato
   }
   _setEvents({ player1, player2 }) {
     player1.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player1', e)})
@@ -89,6 +107,9 @@ class PlayerManager {
   }
   _keydownHandler(player, e) {
     this._keydownValue[player] = e.key
+    if (player === this._activeUser){
+      this.changeActiveUser()
+    }
   }
 }
 
