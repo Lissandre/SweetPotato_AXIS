@@ -77,8 +77,8 @@ class PlayerManager {
     return cosmicPotato
   }
   _setEvents({ player1, player2 }) {
-    player1.addEventListener("joystick:move", (e) => {this._joystickMoveHandler1('player1', e)})
-    player2.addEventListener("joystick:move", (e) => {this._joystickMoveHandler2('player2', e)})
+    player1.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player1', e)})
+    player2.addEventListener("joystick:move", (e) => {this._joystickMoveHandler('player2', e)})
     player1.addEventListener("keydown", (e) => {this._keydownHandler('player1', e)})
     player2.addEventListener("keydown", (e) => {this._keydownHandler('player2', e)})
   }
@@ -102,14 +102,8 @@ class PlayerManager {
     Axis.joystick2.setGamepadEmulatorJoystick(gamepadEmulator, 1)
     return gamepadEmulator
   }
-  _joystickMoveHandler1(player, e) {
-    this._joystickPosition[player] = e.position
-    document.querySelector('.joy1').innerHTML = e.position.x + 'x - y ' + e.position.y
-  }
-  _joystickMoveHandler2(player, e) {
-    this._joystickPosition[player] = e.position
-    document.querySelector('.joy2').innerHTML = e.position.x + 'x - y ' + e.position.y
-
+  _joystickMoveHandler(player, e) {
+    this._joystickPosition[`player${e.id}`] = e.position
   }
   _keydownHandler(player, e) {
     this._keydownValue[player] = e.key
