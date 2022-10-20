@@ -37,7 +37,7 @@ class PlayerManager {
     this._players = this._setPlayers()
     this.cosmicPotato = this._setCosmicPotato()
     this._setEvents(this._players)
-    if (process.env.NODE_ENV === "development") {
+    if (AppManager.DEBUG) {
       this._setKeys()
       this._gamepadEmulator = this._setGamepadEmulator()
       gsap.ticker.add(() => { this._gamepadEmulator.update() })
