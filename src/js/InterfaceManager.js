@@ -8,7 +8,6 @@ class InterfaceManager {
   setup() {
     Assets.on('ressourcesReady', () => {
       this.init()
-      console.log('ready');
     })
     this._container = document.querySelector("#_container")
     this._input = document.querySelector("#_username")
