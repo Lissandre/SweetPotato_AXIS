@@ -73,7 +73,7 @@ class AppManager {
   _setFoeManager() {
     const foeManager = FoeManager
     foeManager.setup()
-    return foeManager
+    return FoeManager
   }
   _setWorldManager() {
     const worldManager = WorldManager
