@@ -104,6 +104,7 @@ class PlayerManager {
   }
   _joystickMoveHandler(player, e) {
     this._joystickPosition[player] = e.position
+    document.querySelector('.joy').innerHTML = this._joystickPosition
   }
   _keydownHandler(player, e) {
     this._keydownValue[player] = e.key
