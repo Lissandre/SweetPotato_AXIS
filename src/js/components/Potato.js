@@ -15,7 +15,6 @@ export default class Potato extends Object3D {
     const max = 3
     const randomValue = Math.floor(Math.random() * (max - min + 1)) + min
     this.createPotato(randomValue)
-    this.setMovement()
   }
   createPotato(potatoType = 1) {
     const potato =
@@ -29,61 +28,59 @@ export default class Potato extends Object3D {
     this.add(potato)
     return potato
   }
-  setMovement() {
-    gsap.ticker.add((time, deltaTime) => {
-      const potatoPosition = this.position
-      const targetPosition = PlayerManager.COSMIC_POTATO_POSITION.position
+  update(time, deltaTime) {
+    const potatoPosition = this.position
+    const targetPosition = PlayerManager.COSMIC_POTATO_POSITION.position
 
-      const xNoise3d = createNoise3D()
-      const xNoiseValue = xNoise3d(
-        targetPosition.x,
-        targetPosition.y,
-        targetPosition.z
-      )
+    const xNoise3d = createNoise3D()
+    const xNoiseValue = xNoise3d(
+      targetPosition.x,
+      targetPosition.y,
+      targetPosition.z
+    )
 
-      const zNoise3d = createNoise3D()
-      const zNoiseValue = zNoise3d(
-        targetPosition.x,
-        targetPosition.y,
-        targetPosition.z
-      )
+    const zNoise3d = createNoise3D()
+    const zNoiseValue = zNoise3d(
+      targetPosition.x,
+      targetPosition.y,
+      targetPosition.z
+    )
 
-      gsap.to(potatoPosition, {
-        x:
-          targetPosition.x > 0
-            ? Math.abs(targetPosition.x)
-            : -Math.abs(targetPosition.x),
-        duration: Math.random() % 2 ? 2.9 : 4.9,
-        ease: 'power.in',
-      })
-      gsap.to(potatoPosition, {
-        z:
-          targetPosition.z > 0
-            ? Math.abs(targetPosition.z)
-            : -Math.abs(targetPosition.z),
-        duration: Math.random() % 2 ? 2.6 : 7,
-        ease: 'power.in',
-      })
-
-      this.speed *= Math.random() % 2 ? 0.3 * xNoiseValue : 2 * xNoiseValue
-
-      potatoPosition.add(
-        getForwardVector(this).multiplyScalar(
-          (potatoPosition.x + xNoiseValue * deltaTime) / 300 - this.speed
-        )
-      )
-
-      potatoPosition.add(
-        getForwardVector(this).multiplyScalar(
-          (potatoPosition.y * deltaTime) / 300 - this.speed
-        )
-      )
-
-      potatoPosition.add(
-        getForwardVector(this).multiplyScalar(
-          (potatoPosition.z + zNoiseValue * deltaTime) / 300 - this.speed
-        )
-      )
+    gsap.to(potatoPosition, {
+      x:
+        targetPosition.x > 0
+          ? Math.abs(targetPosition.x)
+          : -Math.abs(targetPosition.x),
+      duration: Math.random() % 2 ? 2.9 : 4.9,
+      ease: 'power.in',
     })
+    gsap.to(potatoPosition, {
+      z:
+        targetPosition.z > 0
+          ? Math.abs(targetPosition.z)
+          : -Math.abs(targetPosition.z),
+      duration: Math.random() % 2 ? 2.6 : 7,
+      ease: 'power.in',
+    })
+
+    this.speed *= Math.random() % 2 ? 0.3 * xNoiseValue : 2 * xNoiseValue
+
+    potatoPosition.add(
+      getForwardVector(this).multiplyScalar(
+        (potatoPosition.x + xNoiseValue * deltaTime) / 300 - this.speed
+      )
+    )
+
+    potatoPosition.add(
+      getForwardVector(this).multiplyScalar(
+        (potatoPosition.y * deltaTime) / 300 - this.speed
+      )
+    )
+
+    potatoPosition.add(
+      getForwardVector(this).multiplyScalar(
+        (potatoPosition.z + zNoiseValue * deltaTime) / 300 - this.speed
+      )
+    )
   }
 }

@@ -12,13 +12,19 @@ class FoeManager {
   // GETTERS
   // PUBLIC
   setup() {
-    this._foes = this._setFoes(3)
+    this._foes = this._setFoes(15)
   }
   setFoesNumber(foesNumber) {
     this._lastFoesNumber = this._foesNumber
     this._foesNumber = foesNumber
     this._foesNumberHasChanged = true
     return this._foesNumber
+  }
+  animate(time, deltaTime) {
+    this._foes.forEach((foe) => {
+      console.log(foe);
+      foe.update(time, deltaTime)
+    })
   }
   update() {
     if (this._foesNumberHasChanged === true) {
@@ -48,7 +54,7 @@ class FoeManager {
       this._incrementFoesNumber()
     }
     const foes = this._foes
-    return { foes }
+    return foes
   }
   _incrementFoesNumber() {
     this.setFoesNumber(this._foesNumber + 1)

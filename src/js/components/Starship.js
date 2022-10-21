@@ -11,7 +11,7 @@ export default class Starship extends Object3D {
     // Set up
     this.user = options.name
     this.name = `Starship ${options.name}`
-    this.speed = 0.09
+    this.speed = 0.15
     // this.speed = 0
     this.direction = new Vector3()
     this.pSize = CameraManager.SIZE
