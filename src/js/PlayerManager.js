@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import AppManager from './AppManager'
 import Starship from '@components/Starship'
 import CosmicPotato from '@components/CosmicPotato'
+import FoeManager from './FoeManager'
 
 class PlayerManager {
   constructor() {
@@ -49,6 +50,10 @@ class PlayerManager {
   }
   changeActiveUser() {
     this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'
+    FoeManager.setduration(2)
+    setTimeout(() => {
+      FoeManager.setduration(1)
+    }, 2000)
   }
   update(time, deltaTime) {
     this._starships.player1.update(time, deltaTime)

@@ -22,8 +22,14 @@ class FoeManager {
   }
   animate(time, deltaTime) {
     this._foes.forEach((foe) => {
-      console.log(foe);
+      // console.log(foe);
       foe.update(time, deltaTime)
+    })
+  }
+  setduration(duration) {
+    this._foes.forEach((foe) => {
+      // console.log(foe);
+      foe.setDuration(duration)
     })
   }
   update() {
