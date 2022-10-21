@@ -15,6 +15,9 @@ class FoeManager {
     this._foes = this.setFoes(15)
   }
   reset() { 
+    this._foes.forEach((foe) => {
+      AppManager.SCENE.remove(foe)
+    })
     this._foes = []
     this._foesNumber = 0
     this._lastFoesNumber = 0

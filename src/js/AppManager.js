@@ -66,6 +66,7 @@ class AppManager {
         this._foeManager.animate(time, deltaTime)
       }, 2000)
     }
+    this._foeManager.setup()
     this.upd = upd
     gsap.ticker.add(upd)
   }
