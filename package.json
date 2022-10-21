@@ -6,6 +6,7 @@
   "dependencies": {
     "axis-api": "github:gobelins-axis/axis-api",
     "gsap": "^3.11.3",
+    "simplex-noise": "^4.0.1",
     "three": "^0.134.0"
   },
   "devDependencies": {
