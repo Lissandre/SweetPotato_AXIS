@@ -2,12 +2,10 @@ import {
   DoubleSide,
   Mesh,
   MeshBasicMaterial,
-  NearestFilter,
   Object3D,
   PlaneGeometry,
   RepeatWrapping,
   sRGBEncoding,
-  TextureLoader,
 } from 'three'
 import Assets from '@utils/Loader'
 import gsap from 'gsap'
@@ -23,10 +21,12 @@ export default class Floor extends Object3D {
   // PUBLIC
   setup() {
     this._floor = this._setFloor()
-    this._layerStars = this._setLayerStars()
+    this._layerStars1 = this._setLayerStars1()
+    this._layerStars2 = this._setLayerStars2()
     this._setMovementFloor()
-    this._setMovementLayerStars()
-    this.add(this._floor, this._layerStars)
+    this._setMovementLayerStars1()
+    this._setMovementLayerStars2()
+    this.add(this._floor, this._layerStars1, this._layerStars2)
   }
   // PRIVATE
   _setFloor() {
@@ -37,7 +37,6 @@ export default class Floor extends Object3D {
     const floor = new Mesh(
       new PlaneGeometry(100, 100),
       new MeshBasicMaterial({
-        color: 0xff8844,
         map: Assets.textures.background,
         side: DoubleSide,
       })
@@ -57,73 +56,138 @@ export default class Floor extends Object3D {
       scrollOffsetFloor()
     })
   }
-  _setLayerStars() {
-    Assets.textures.stars.encoding = sRGBEncoding
-    Assets.textures.stars.wrapS = RepeatWrapping
-    Assets.textures.stars.wrapT = RepeatWrapping
+  _setLayerStars1() {
+    Assets.textures.stars1.encoding = sRGBEncoding
+    Assets.textures.stars1.wrapS = RepeatWrapping
+    Assets.textures.stars1.wrapT = RepeatWrapping
 
-    const layerStars = new Mesh(
+    const layerStars1 = new Mesh(
       new PlaneGeometry(100, 100),
       new MeshBasicMaterial({
-        color: 0xff8844,
-        map: Assets.textures.stars,
+        map: Assets.textures.stars1,
         side: DoubleSide,
         transparent: true,
-        opacity: 0.7,
       })
     )
 
-    layerStars.rotation.x = Math.PI / 2
-    layerStars.position.y = -0.8
+    layerStars1.rotation.x = Math.PI / 2
+    layerStars1.position.y = -0.8
 
-    return layerStars
+    return layerStars1
   }
-  _setMovementLayerStars() {
+  _setMovementLayerStars1() {
     gsap.ticker.add((time, deltaTime) => {
       //add sin opacity
       //add rotate
 
-      const scrollOffsetLayerStars = () => {
+      const scrollOffsetLayerStars1 = () => {
         if (PlayerManager.JOYSTICK_POSITION.player1.y > 0.5) {
           // hard speed
-          const speedPlayerStarsOffset = { x: 0.0001, y: 0.0003 }
-          Assets.textures.stars.offset.x +=
+          const speedPlayerStarsOffset = { x: 0.00005, y: 0.000055 }
+          Assets.textures.stars1.offset.x +=
             PlayerManager.JOYSTICK_POSITION.player1.x *
             speedPlayerStarsOffset.x *
             deltaTime
-          Assets.textures.stars.offset.y +=
+          Assets.textures.stars1.offset.y -=
             PlayerManager.JOYSTICK_POSITION.player1.y *
             speedPlayerStarsOffset.y *
             deltaTime
         } else if (PlayerManager.JOYSTICK_POSITION.player1.y > 0) {
           // medium speed
-          const speedPlayerStarsOffset = { x: 0.0001, y: 0.00025 }
-          Assets.textures.stars.offset.x +=
+          const speedPlayerStarsOffset = { x: 0.00004, y: 0.0000035 }
+          Assets.textures.stars1.offset.x +=
             PlayerManager.JOYSTICK_POSITION.player1.x *
             speedPlayerStarsOffset.x *
             deltaTime
-          Assets.textures.stars.offset.y +=
+          Assets.textures.stars1.offset.y -=
             PlayerManager.JOYSTICK_POSITION.player1.y *
             speedPlayerStarsOffset.y *
             deltaTime
         } else if (PlayerManager.JOYSTICK_POSITION.player1.y === 0) {
           // normal speed
-          const speedStarsOffset = { x: 0.00001, y: 0.00009 }
-          Assets.textures.stars.offset.x += speedStarsOffset.x * deltaTime
-          Assets.textures.stars.offset.y += speedStarsOffset.y * deltaTime
+          const speedStarsOffset = { x: 0.000004, y: 0.000001 }
+          Assets.textures.stars1.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars1.offset.y -= speedStarsOffset.y * deltaTime
         } else if (PlayerManager.JOYSTICK_POSITION.player1.y < 0) {
           // medium slow mo speed
           const speedStarsOffset = { x: 0.00003, y: 0.00003 }
-          Assets.textures.stars.offset.x += speedStarsOffset.x * deltaTime
-          Assets.textures.stars.offset.y += speedStarsOffset.y * deltaTime
+          Assets.textures.stars1.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars1.offset.y -= speedStarsOffset.y * deltaTime
         } else if (PlayerManager.JOYSTICK_POSITION.player1.y < -0.5) {
           // hard slow mo speed
           const speedStarsOffset = { x: 0.00001, y: 0.00001 }
-          Assets.textures.stars.offset.x += speedStarsOffset.x * deltaTime
-          Assets.textures.stars.offset.y += speedStarsOffset.y * deltaTime
+          Assets.textures.stars1.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars1.offset.y -= speedStarsOffset.y * deltaTime
         }
       }
-      scrollOffsetLayerStars()
+      scrollOffsetLayerStars1()
+    })
+  }
+  _setLayerStars2() {
+    Assets.textures.stars2.encoding = sRGBEncoding
+    Assets.textures.stars2.wrapS = RepeatWrapping
+    Assets.textures.stars2.wrapT = RepeatWrapping
+
+    const layerStars2 = new Mesh(
+      new PlaneGeometry(100, 100),
+      new MeshBasicMaterial({
+        map: Assets.textures.stars2,
+        side: DoubleSide,
+        transparent: true,
+      })
+    )
+
+    layerStars2.rotation.x = Math.PI / 2
+    layerStars2.position.y = -0.5
+
+    return layerStars2
+  }
+  _setMovementLayerStars2() {
+    gsap.ticker.add((time, deltaTime) => {
+      //add sin opacity
+      //add rotate
+
+      const scrollOffsetLayerStars2 = () => {
+        if (PlayerManager.JOYSTICK_POSITION.player1.y > 0.5) {
+          // hard speed
+          const speedPlayerStarsOffset = { x: 0.00004, y: 0.000045 }
+          Assets.textures.stars2.offset.x +=
+            PlayerManager.JOYSTICK_POSITION.player1.x *
+            speedPlayerStarsOffset.x *
+            deltaTime
+          Assets.textures.stars2.offset.y -=
+            PlayerManager.JOYSTICK_POSITION.player1.y *
+            speedPlayerStarsOffset.y *
+            deltaTime
+        } else if (PlayerManager.JOYSTICK_POSITION.player1.y > 0) {
+          // medium speed
+          const speedPlayerStarsOffset = { x: 0.00002, y: 0.0000025 }
+          Assets.textures.stars2.offset.x +=
+            PlayerManager.JOYSTICK_POSITION.player1.x *
+            speedPlayerStarsOffset.x *
+            deltaTime
+          Assets.textures.stars2.offset.y -=
+            PlayerManager.JOYSTICK_POSITION.player1.y *
+            speedPlayerStarsOffset.y *
+            deltaTime
+        } else if (PlayerManager.JOYSTICK_POSITION.player1.y === 0) {
+          // normal speed
+          const speedStarsOffset = { x: 0.000001, y: 0.000009 }
+          Assets.textures.stars2.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars2.offset.y -= speedStarsOffset.y * deltaTime
+        } else if (PlayerManager.JOYSTICK_POSITION.player1.y < 0) {
+          // medium slow mo speed
+          const speedStarsOffset = { x: 0.000003, y: 0.000003 }
+          Assets.textures.stars2.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars2.offset.y -= speedStarsOffset.y * deltaTime
+        } else if (PlayerManager.JOYSTICK_POSITION.player1.y < -0.5) {
+          // hard slow mo speed
+          const speedStarsOffset = { x: 0.000001, y: 0.000001 }
+          Assets.textures.stars2.offset.x += speedStarsOffset.x * deltaTime
+          Assets.textures.stars2.offset.y -= speedStarsOffset.y * deltaTime
+        }
+      }
+      scrollOffsetLayerStars2()
     })
   }
 }
