@@ -3,10 +3,18 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import AppManager from './AppManager'
 
 class CameraManager {
-  constructor() {}
+  constructor() {
+    this.size = 25
+  }
   // GETTERS
   get CAMERA() {
     return this._camera
+  }
+  get RATIO() {
+    return window.innerWidth / window.innerHeight
+  }
+  get SIZE() {
+    return this.size
   }
   // PUBLIC
   setup() {
