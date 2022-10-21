@@ -1,11 +1,14 @@
 import Axis from "axis-api"
 import gsap from "gsap"
+import FoeManager from "./FoeManager"
 
 class LeaderboardManager {
   constructor() {
     this._input = document.querySelector("#username")
     this.username = ''
     this._score = 0
+    this.last = 0
+    this.number = 1
   }
   // SETTERS
   set SCORE(score) {
@@ -34,6 +37,10 @@ class LeaderboardManager {
   }
   update(time, deltaTime) {
     this._score += Number(deltaTime) / 10
+    if(this._score - this.last >= 100) {
+      this.last = this._score
+      FoeManager.setFoes(this.number)
+    }
   }
   // PRIVATE
   _setEvents() {

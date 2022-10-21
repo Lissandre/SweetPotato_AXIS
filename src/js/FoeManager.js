@@ -12,7 +12,7 @@ class FoeManager {
   // GETTERS
   // PUBLIC
   setup() {
-    this._foes = this._setFoes(15)
+    this._foes = this.setFoes(15)
   }
   setFoesNumber(foesNumber) {
     this._lastFoesNumber = this._foesNumber
@@ -34,12 +34,13 @@ class FoeManager {
   }
   update() {
     if (this._foesNumberHasChanged === true) {
-      this._setFoes(this.foesNumber - this._lastFoesNumber)
+      this.setFoes(this.foesNumber - this._lastFoesNumber)
       this._foesNumberHasChanged = false
     }
   }
   // PRIVATE
-  _setFoes(foesNumberToInit) {
+  setFoes(foesNumberToInit) {
+    console.log('ok');
     for (let i = 0; i < foesNumberToInit; i++) {
       const min = 0
       const max = 50
