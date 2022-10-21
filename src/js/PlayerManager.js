@@ -1,5 +1,4 @@
 import Axis from 'axis-api'
-import gsap from 'gsap'
 
 import AppManager from './AppManager'
 import Assets from '@utils/Loader'
@@ -53,10 +52,10 @@ class PlayerManager {
   }
   changeActiveUser() {
     this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'
-    FoeManager.setduration(2)
+    FoeManager.setduration(3)
     setTimeout(() => {
       FoeManager.setduration(1)
-    }, 2000)
+    }, 3000)
     const listener = new AudioListener()
     CameraManager.CAMERA.add(listener)
     const sound = new Audio(listener)

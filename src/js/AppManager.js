@@ -50,7 +50,7 @@ class AppManager {
     gsap.ticker.add((time, deltaTime) => { this._playerManager.update(time, deltaTime) })
     gsap.ticker.add(() => { this._interfaceManager.update() })
     gsap.ticker.add(() => { this._foeManager.update() })
-    gsap.ticker.add((time, deltaTime) => { this._foeManager.animate(time, deltaTime) })
+    setTimeout(() => {gsap.ticker.add((time, deltaTime) => { this._foeManager.animate(time, deltaTime) })}, 4000)
   }
   removeUpdate() {
     gsap.ticker.remove((time, deltaTime) => { this._leaderboardManager.update(time, deltaTime) })
