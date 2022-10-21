@@ -9,7 +9,7 @@ export default class Potato extends Object3D {
   constructor(options) {
     super()
     this.name = `Potato ${options.name}`
-    this.speed = 0.85
+    this.speed = 1.1
     this.duration = 1
 
     const min = 1
