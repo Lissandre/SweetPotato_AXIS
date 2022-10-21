@@ -33,6 +33,7 @@ class AppManager {
     this._renderer = this._setRenderer()
     this._cameraManager = this._setCameraManager()
     this._worldManager = this._setWorldManager()
+    this._interfaceManager = this._setInterfaceManager()
   }
   init() {
     this._foeManager = this._setFoeManager()
@@ -40,11 +41,21 @@ class AppManager {
     this._playerManager = this._setPlayerManager()
     this._setTicker()
     this._setEvents()
-    this._leaderboardManager.setTimer()
-    gsap.ticker.time = 0
   }
   update() {
     this._renderer.render(this._scene, this._cameraManager.CAMERA)
+  }
+  setUpdate() {
+    gsap.ticker.add((time, deltaTime) => { this._leaderboardManager.update(time, deltaTime) })
+    gsap.ticker.add((time, deltaTime) => { this._playerManager.update(time, deltaTime) })
+    gsap.ticker.add(() => { this._interfaceManager.update() })
+    gsap.ticker.add(() => { this._foeManager.update() })
+  }
+  removeUpdate() {
+    gsap.ticker.remove((time, deltaTime) => { this._leaderboardManager.update(time, deltaTime) })
+    gsap.ticker.remove((time, deltaTime) => { this._playerManager.update(time, deltaTime) })
+    gsap.ticker.remove(() => { this._interfaceManager.update() })
+    gsap.ticker.remove(() => { this._foeManager.update() })
   }
   // PRIVATE
   _setScene() {
@@ -105,10 +116,8 @@ class AppManager {
     return false
   }
   _setTicker() {
-    // gsap.ticker.fps(60)
-    gsap.ticker.add(() => {
-      this.update()
-    })
+    gsap.ticker.add(() => {this.update()})
+    gsap.ticker.add(() => {this._playerManager.EMULATOR.update()})
   }
   _exitAttemptHandler() {
     gsap.ticker.sleep()

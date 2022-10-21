@@ -22,7 +22,7 @@ class LeaderboardManager {
     return this._getBestScore()
   }
   get SCORE() {
-    return this._score
+    return this._score.toFixed(0)
   }
   // PUBLIC
   setup() {
@@ -32,13 +32,10 @@ class LeaderboardManager {
   setUsernameAndScore() {
     this._openKeyboard()
   }
-  setTimer() {
-    gsap.ticker.add((time) => {this._incrementScore(time)})
+  update(time, deltaTime) {
+    this._score += Number(deltaTime) / 10
   }
   // PRIVATE
-  _incrementScore(time) {
-    this._score = (time * 10).toFixed(0)
-  }
   _setEvents() {
     Axis.virtualKeyboard.addEventListener("input", (username) => { this._input.value = username })
     Axis.virtualKeyboard.addEventListener("validate", (username) => { this._saveUsername(username) })

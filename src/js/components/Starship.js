@@ -15,7 +15,6 @@ export default class Starship extends Object3D {
     this.direction = new Vector3()
 
     this.createStarship()
-    this.setMovement()
   }
   // GETTERS
   get FOURCHETTE() {
@@ -26,25 +25,23 @@ export default class Starship extends Object3D {
     this.starship = Assets.models.ship.scene.clone()
     this.add(this.starship)
   }
-  setMovement() {
-    gsap.ticker.add((time, deltaTime) => {
-      this.rotation.y -=
-        (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 200
-      this.position.add(getForwardVector(this).multiplyScalar((-PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 250 - this.speed))
+  update(time, deltaTime) {
+    this.rotation.y -=
+      (PlayerManager.JOYSTICK_POSITION[this.user].x * deltaTime) / 400
+    this.position.add(getForwardVector(this).multiplyScalar((-PlayerManager.JOYSTICK_POSITION[this.user].y * deltaTime) / 250 - this.speed))
 
-      gsap.to(this.starship.rotation, {
-        x: -PlayerManager.JOYSTICK_POSITION[this.user].y / 4,
-        duration: 0.03,
-        repeat: 1,
-        ease: 'expo.in',
-      })
+    gsap.to(this.starship.rotation, {
+      x: -PlayerManager.JOYSTICK_POSITION[this.user].y / 4,
+      duration: 0.03,
+      repeat: 1,
+      ease: 'expo.in',
+    })
 
-      gsap.to(this.starship.rotation, {
-        z: -PlayerManager.JOYSTICK_POSITION[this.user].x / 3,
-        duration: 0.06,
-        repeat: 1,
-        ease: 'circ.in',
-      })
+    gsap.to(this.starship.rotation, {
+      z: -PlayerManager.JOYSTICK_POSITION[this.user].x / 3,
+      duration: 0.06,
+      repeat: 1,
+      ease: 'circ.in',
     })
   }
 }

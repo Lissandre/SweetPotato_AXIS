@@ -13,13 +13,18 @@ class FoeManager {
   // PUBLIC
   setup() {
     this._foes = this._setFoes(3)
-    this._updateFoes()
   }
   setFoesNumber(foesNumber) {
     this._lastFoesNumber = this._foesNumber
     this._foesNumber = foesNumber
     this._foesNumberHasChanged = true
     return this._foesNumber
+  }
+  update() {
+    if (this._foesNumberHasChanged === true) {
+      this._setFoes(this.foesNumber - this._lastFoesNumber)
+      this._foesNumberHasChanged = false
+    }
   }
   // PRIVATE
   _setFoes(foesNumberToInit) {
@@ -34,14 +39,6 @@ class FoeManager {
     }
     const foes = this._foes
     return { foes }
-  }
-  _updateFoes() {
-    gsap.ticker.add((time, deltaTime) => {
-      if (this._foesNumberHasChanged === true) {
-        this._setFoes(this.foesNumber - this._lastFoesNumber)
-        this._foesNumberHasChanged = false
-      }
-    })
   }
   _incrementFoesNumber() {
     this.setFoesNumber(this._foesNumber + 1)

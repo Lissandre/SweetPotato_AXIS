@@ -19,9 +19,11 @@ class PlayerManager {
     this._activeUser = 'player1'
     this._setKeys()
     this._gamepadEmulator = this._setGamepadEmulator()
-    gsap.ticker.add(() => { this._gamepadEmulator.update() })
   }
   // GETTERS
+  get EMULATOR() {
+    return this._gamepadEmulator
+  }
   get JOYSTICK_POSITION() {
     return this._joystickPosition
   }
@@ -47,6 +49,10 @@ class PlayerManager {
   }
   changeActiveUser() {
     this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'
+  }
+  update(time, deltaTime) {
+    this._starships.player1.update(time, deltaTime)
+    this._starships.player2.update(time, deltaTime)
   }
   // PRIVATE
   _setStarships() {

@@ -25,7 +25,6 @@ class InterfaceManager {
   init() {
     document.querySelector('#_start button').classList.remove('hidden')
     this._setEvents()
-    this._animate()
   }
   setScores() {
     this._endGame.classList.remove("hidden")
@@ -46,12 +45,16 @@ class InterfaceManager {
       this._currentScore.innerText = LeaderboardManager.SCORE
     }
   }
-  // PRIVATE
-  _animate() {
+  update() {
     this.setScore()
-    requestAnimationFrame(() => {this._animate()})
   }
+  // PRIVATE
   _setEvents() {
+    function startTimer() {
+      AppManager.setUpdate()
+      Axis.removeEventListener("keydown", startTimer)
+      Axis.removeEventListener("joystick:move", startTimer)
+    }
     function hideStart() {
       Axis.removeEventListener("keyup", hideStart)
       document.querySelector('button').removeEventListener("click", hideStart)
@@ -63,6 +66,8 @@ class InterfaceManager {
       this._teaser.classList.add('hidden')
       // setTimeout(() => {
         AppManager.init()
+        Axis.addEventListener("keydown", startTimer)
+        Axis.addEventListener("joystick:move", startTimer)
       // }, 1000)
     }, {once: true})
     Axis.addEventListener("keyup", hideStart)
