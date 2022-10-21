@@ -1,7 +1,8 @@
-import { Mesh, MeshStandardMaterial, Object3D, SphereGeometry } from "three"
+import { DoubleSide, Object3D } from "three"
 import gsap from "gsap"
 import PlayerManager from "@js/PlayerManager"
-import AppManager from "../AppManager"
+// import AppManager from "../AppManager"
+import Assets from '@utils/Loader'
 
 export default class CosmicPotato extends Object3D {
   constructor() {
@@ -17,12 +18,7 @@ export default class CosmicPotato extends Object3D {
   }
   // PRIVATE
   _setMesh() {
-    const potato = new Mesh(
-      new SphereGeometry(0.25, 16, 16,),
-      new MeshStandardMaterial({
-        color: 0xff0000
-      })
-    )
+    const potato = Assets.models.cosmic.scene.clone()
     // potato.position.z = -0.25
     return potato
   }

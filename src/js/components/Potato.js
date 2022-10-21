@@ -26,12 +26,10 @@ export default class Potato extends Object3D {
 
     const potato =
       potatoType === 1
-        ? Assets.models.patate_1_V02.scene.clone()
+        ? Assets.models.patate_1.scene.clone()
         : potatoType === 2
         ? Assets.models.patate_2.scene.clone()
-        : potatoType === 3
-        ? Assets.models.patate_3.scene.clone()
-        : Assets.models.patate_1_V02.scene.clone()
+        :  Assets.models.patate_3.scene.clone()
     this.add(potato)
     return potato
   }

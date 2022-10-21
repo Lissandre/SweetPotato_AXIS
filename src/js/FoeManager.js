@@ -40,7 +40,7 @@ class FoeManager {
   }
   // PRIVATE
   setFoes(foesNumberToInit) {
-    console.log('ok');
+    // console.log('ok');
     for (let i = 0; i < foesNumberToInit; i++) {
       const min = 0
       const max = 50
