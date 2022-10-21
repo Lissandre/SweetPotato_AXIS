@@ -29,10 +29,20 @@ class FoeManager {
   // PRIVATE
   _setFoes(foesNumberToInit) {
     for (let i = 0; i < foesNumberToInit; i++) {
+      const min = 0
+      const max = 50
+      const randomX =
+        Math.random() % 2
+          ? Math.floor(Math.random() * (max - min + 1)) + min
+          : -Math.floor(Math.random() * (max - min + 1)) + min
+      const randomZ =
+        Math.random() % 2
+          ? Math.floor(Math.random() * (max - min + 1)) + min
+          : -Math.floor(Math.random() * (max - min + 1)) + min
+
       const foeId = this._foes.length + 1
       const newFoe = new Potato({ name: `potato${foeId}` })
-      newFoe.position.set(-100, 0, 0)
-      newFoe.position.set(100, 0, 0)
+      newFoe.position.set(randomX, 0, randomZ)
       this._foes.push(newFoe)
       AppManager.SCENE.add(newFoe)
       this._incrementFoesNumber()
