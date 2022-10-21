@@ -2,9 +2,12 @@ import Axis from 'axis-api'
 import gsap from 'gsap'
 
 import AppManager from './AppManager'
+import Assets from '@utils/Loader'
 import Starship from '@components/Starship'
 import CosmicPotato from '@components/CosmicPotato'
 import FoeManager from './FoeManager'
+import CameraManager from './CameraManager'
+import { Audio, AudioListener } from 'three'
 
 class PlayerManager {
   constructor() {
@@ -54,6 +57,13 @@ class PlayerManager {
     setTimeout(() => {
       FoeManager.setduration(1)
     }, 2000)
+    const listener = new AudioListener()
+    CameraManager.CAMERA.add(listener)
+    const sound = new Audio(listener)
+    sound.setBuffer(Assets.sounds.launch_patate)
+    sound.setLoop(false)
+    sound.setVolume(20)
+    sound.play()
   }
   update(time, deltaTime) {
     this._starships.player1.update(time, deltaTime)
