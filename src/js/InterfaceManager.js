@@ -2,7 +2,6 @@ import Axis from 'axis-api'
 import Assets from '@utils/Loader'
 import AppManager from './AppManager'
 import LeaderboardManager from './LeaderboardManager'
-import gsap from 'gsap'
 
 class InterfaceManager {
   constructor() {}
@@ -51,6 +50,7 @@ class InterfaceManager {
   // PRIVATE
   _setEvents() {
     function startTimer() {
+      document.querySelector("#_tuto").classList.add('hidden')
       AppManager.setUpdate()
       Axis.removeEventListener("keydown", startTimer)
       Axis.removeEventListener("joystick:move", startTimer)
@@ -66,6 +66,7 @@ class InterfaceManager {
       this._teaser.classList.add('hidden')
       // setTimeout(() => {
         AppManager.init()
+        document.querySelector("#_tuto").classList.remove('hidden')
         Axis.addEventListener("keydown", startTimer)
         Axis.addEventListener("joystick:move", startTimer)
       // }, 1000)
