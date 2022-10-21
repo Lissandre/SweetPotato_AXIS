@@ -4,6 +4,7 @@ import AppManager from './AppManager'
 import LeaderboardManager from './LeaderboardManager'
 import CameraManager from './CameraManager'
 import { Audio, AudioListener } from 'three'
+import gsap  from 'gsap'
 
 class InterfaceManager {
   constructor() {}
@@ -23,6 +24,20 @@ class InterfaceManager {
     this._teaser = document.querySelector('#_teaser')
     this._currentScore = document.querySelector('.currentScore')
   }
+  reset() {
+    console.log('reset');
+    Axis.addEventListener('keyup', startTimer)
+    Axis.addEventListener('joystick:move', startTimer)
+    this._endGame.classList.add('hidden')
+    document.querySelector('#_tuto').classList.remove('hidden')
+
+    function startTimer() {
+      document.querySelector('#_tuto').classList.add('hidden')
+      AppManager.setUpdate()
+      Axis.removeEventListener('keyup', startTimer)
+      Axis.removeEventListener('joystick:move', startTimer)
+    }
+  }
   init() {
     document.querySelector('#_start button').classList.remove('hidden')
     this._setEvents()
@@ -30,9 +45,12 @@ class InterfaceManager {
   setScores() {
     this._endGame.classList.remove('hidden')
     this._endGame.querySelector('.best span').innerHTML =
-      LeaderboardManager.SCORE
+      0 || LeaderboardManager.BEST_SCORE
     this._endGame.querySelector('.now span').innerHTML =
-      LeaderboardManager.BEST_SCORE
+      LeaderboardManager.SCORE
+    document.querySelector('.button .retry').addEventListener('click', () => {
+      AppManager.replay()
+    }, { once: true })
   }
   showInput() {
     this._container.classList.add('active')
@@ -56,6 +74,8 @@ class InterfaceManager {
     function startTimer() {
       document.querySelector('#_tuto').classList.add('hidden')
       AppManager.setUpdate()
+      Axis.removeEventListener('keydown', startTimer)
+      Axis.removeEventListener('joystick:move', startTimer)
 
       const listener = new AudioListener()
       CameraManager.CAMERA.add(listener)
@@ -64,9 +84,6 @@ class InterfaceManager {
       sound.setLoop(true)
       sound.setVolume(10)
       sound.play()
-
-      Axis.removeEventListener('keydown', startTimer)
-      Axis.removeEventListener('joystick:move', startTimer)
     }
     function hideStart() {
       Axis.removeEventListener('keyup', hideStart)

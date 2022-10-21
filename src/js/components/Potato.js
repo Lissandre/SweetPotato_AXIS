@@ -4,6 +4,8 @@ import gsap from 'gsap'
 import PlayerManager from '../PlayerManager'
 import getForwardVector from '@utils/GetForwardVector'
 import { createNoise3D } from 'simplex-noise'
+import AppManager from '../AppManager'
+import InterfaceManager from '../InterfaceManager'
 
 export default class Potato extends Object3D {
   constructor(options) {
@@ -72,6 +74,14 @@ export default class Potato extends Object3D {
     })
 
     this.speed *= Math.random() % 2 ? 1 * xNoiseValue : 2 * xNoiseValue
+
+    // console.log(potatoPosition, targetPosition);
+    // console.log(potatoPosition.distanceTo(targetPosition));
+    if ((Math.abs(targetPosition.x - potatoPosition.x) < 0.1) && (Math.abs(targetPosition.z - potatoPosition.z) < 0.1) && !AppManager.IS_GAME_OVER) {
+      this.lost = true
+      AppManager.removeUpdate()
+      InterfaceManager.setScores()
+    }
 
     // potatoPosition.add(
     //   getForwardVector(this).multiplyScalar(

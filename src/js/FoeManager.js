@@ -14,6 +14,12 @@ class FoeManager {
   setup() {
     this._foes = this.setFoes(15)
   }
+  reset() { 
+    this._foes = []
+    this._foesNumber = 0
+    this._lastFoesNumber = 0
+    this._foesNumberHasChanged = false
+  }
   setFoesNumber(foesNumber) {
     this._lastFoesNumber = this._foesNumber
     this._foesNumber = foesNumber

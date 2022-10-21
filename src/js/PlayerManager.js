@@ -50,6 +50,20 @@ class PlayerManager {
     this._cosmicPotato = this._setCosmicPotato()
     this._setEvents(this._players)
   }
+  reset() { 
+    this._joystickPosition = {
+      player1: { x: 0, y: 0 },
+      player2: { x: 0, y: 0 },
+    }
+    this._keydownValue = {
+      player1: null,
+      player2: null,
+    }
+    this._users = ['player1', 'player2']
+    this._activeUser = 'player1'
+    this._starships.player1.position.set(-1, 0, 0)
+    this._starships.player2.position.set(1, 0, 0)
+  }
   changeActiveUser() {
     this._activeUser = this._activeUser === 'player1' ? 'player2' : 'player1'
     FoeManager.setduration(3)

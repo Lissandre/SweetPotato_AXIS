@@ -14,8 +14,12 @@ import InterfaceManager from './InterfaceManager'
 class AppManager {
   constructor() {
     this.assets = Assets
+    this.gameOver = false
   }
   // GETTERS
+  get IS_GAME_OVER() {
+    return this.gameOver
+  }
   get DEBUG() {
     return this._debug
   }
@@ -45,20 +49,29 @@ class AppManager {
   update() {
     this._renderer.render(this._scene, this._cameraManager.CAMERA)
   }
+  replay() {
+    this.gameOver = false
+    this._leaderboardManager.reset()
+    this._playerManager.reset()
+    this._interfaceManager.reset()
+    this._foeManager.reset()
+  }
   setUpdate() {
-    gsap.ticker.add((time, deltaTime) => { this._leaderboardManager.update(time, deltaTime) })
-    gsap.ticker.add((time, deltaTime) => { this._playerManager.update(time, deltaTime) })
-    gsap.ticker.add(() => { this._interfaceManager.update() })
-    gsap.ticker.add(() => { this._foeManager.update() })
-    setTimeout(() => {gsap.ticker.add((time, deltaTime) => { this._foeManager.animate(time, deltaTime) })}, 4000)
+    const upd = (time, deltaTime) => {
+      this._leaderboardManager.update(time, deltaTime)
+      this._playerManager.update(time, deltaTime)
+      this._interfaceManager.update()
+      this._foeManager.update()
+      setTimeout(() => {
+        this._foeManager.animate(time, deltaTime)
+      }, 2000)
+    }
+    this.upd = upd
+    gsap.ticker.add(upd)
   }
   removeUpdate() {
-    gsap.ticker.remove((time, deltaTime) => { this._leaderboardManager.update(time, deltaTime) })
-    gsap.ticker.remove((time, deltaTime) => { this._playerManager.update(time, deltaTime) })
-    gsap.ticker.remove(() => { this._interfaceManager.update() })
-    gsap.ticker.remove(() => { this._foeManager.update() })
-    gsap.ticker.remove((time, deltaTime) => { this._foeManager.animate(time, deltaTime) })
-
+    gsap.ticker.remove(this.upd)
+    this.gameOver = true
   }
   // PRIVATE
   _setScene() {

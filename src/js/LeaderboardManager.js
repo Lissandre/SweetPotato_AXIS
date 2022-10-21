@@ -32,6 +32,12 @@ class LeaderboardManager {
     this._leaderboard = this._setLeaderboard()
     this._setEvents()
   }
+  reset() {
+    this.username = ''
+    this._score = 0
+    this.last = 0
+    this.number = 1
+  }
   setUsernameAndScore() {
     this._openKeyboard()
   }
