@@ -48,9 +48,14 @@ class InterfaceManager {
       0 || LeaderboardManager.BEST_SCORE
     this._endGame.querySelector('.now span').innerHTML =
       LeaderboardManager.SCORE
-    document.querySelector('.button .retry').addEventListener('click', () => {
+    document.querySelector('.button .retry').addEventListener('click',replay)
+    Axis.addEventListener('keyup', replay)
+    function replay() {
+      document.querySelector('.button .retry').removeEventListener('click', replay)
+      Axis.removeEventListener('keyup', replay)
       AppManager.replay()
-    }, { once: true })
+    }
+
   }
   showInput() {
     this._container.classList.add('active')
