@@ -40,12 +40,24 @@ class CameraManager {
   }
   // PRIVATE
   _setCamera() {
-    const camera = new PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
+    const camera = new PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    )
     return camera
   }
   _setOrthoCamera() {
     const ratio = window.innerWidth / window.innerHeight
-    const camera = new OrthographicCamera(-50, 50, 50 / ratio, -50 / ratio, 0.1, 1000)
+    const camera = new OrthographicCamera(
+      -25,
+      25,
+      25 / ratio,
+      -25 / ratio,
+      0.1,
+      1000
+    )
     return camera
   }
   _setDebug() {
