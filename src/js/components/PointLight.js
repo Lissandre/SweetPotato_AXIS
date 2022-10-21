@@ -15,11 +15,11 @@ export default class PointLightSource extends Object3D {
     }
   }
   setup() {
-    this.createPointLight()
-    this.setPosition()
-    if (this._debug) {
-      this._setDebug()
-    }
+    // this.createPointLight()
+    // this.setPosition()
+    // if (this._debug) {
+      // this._setDebug()
+    // }
   }
   createPointLight() {
     this.light = new PointLight(this.params.color, 2, 100)

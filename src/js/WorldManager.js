@@ -2,6 +2,7 @@ import { AxesHelper } from 'three'
 
 import AppManager from './AppManager'
 import PointLightSource from '@components/PointLight'
+import AmbientLightSource from '@components/AmbientLight'
 import Floor from '@components/Floor'
 
 class WorldManager {
@@ -17,6 +18,7 @@ class WorldManager {
     this._debug = AppManager.DEBUG
     this._scene = AppManager.SCENE
     this._pointLight = this._setPointLight()
+    this._ambientLight = this._setAmbientLight()
     this._floor = this._setFloor()
     this._addToScene()
     if (this._debug) {
@@ -26,6 +28,11 @@ class WorldManager {
   // PRIVATE
   _setPointLight() {
     const light = new PointLightSource()
+    this._objects.push(light)
+    return light
+  }
+  _setAmbientLight() {
+    const light = new AmbientLightSource()
     this._objects.push(light)
     return light
   }
